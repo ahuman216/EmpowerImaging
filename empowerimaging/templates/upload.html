@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmpowerImaging — Upload Your MRI Scan</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+
+  <!-- ── Header ───────────────────────────── -->
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">🫁</div>
+        <span class="logo-text">EmpowerImaging</span>
+      </a>
+      <span class="logo-tag">Educational Only</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- Progress stepper -->
+      <nav class="stepper" aria-label="Progress">
+        <div class="step active">
+          <div class="step-circle">1</div>
+          <span class="step-label">Upload</span>
+        </div>
+        <div class="step">
+          <div class="step-circle">2</div>
+          <span class="step-label">Visualise</span>
+        </div>
+        <div class="step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Next Steps</span>
+        </div>
+      </nav>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer" role="note">
+        <span class="icon">ℹ️</span>
+        <div>
+          <strong>Educational tool only.</strong> EmpowerImaging does not provide medical diagnoses.
+          All explanations are general health information. Always consult a qualified healthcare
+          professional about your scan results.
+        </div>
+      </div>
+
+      <!-- Hero text -->
+      <div class="upload-hero">
+        <h1>Understand Your MRI Scan</h1>
+        <p>
+          Upload an MRI image and we'll walk you through what the scan may show — using
+          plain language, anatomy diagrams, and helpful questions to bring to your doctor.
+        </p>
+      </div>
+
+      <!-- Upload card -->
+      <div class="card" style="max-width:580px; margin:0 auto;">
+
+        {% if error %}
+        <div class="error-banner" role="alert">⚠ {{ error }}</div>
+        {% endif %}
+
+        <form method="POST" action="/upload" enctype="multipart/form-data" id="upload-form" novalidate>
+
+          <label for="mri-input">
+            <div class="upload-zone" id="upload-zone">
+              <input
+                type="file"
+                name="mri_scan"
+                id="mri-input"
+                accept="image/jpeg,image/png"
+                aria-label="Choose MRI scan image (JPG or PNG)"
+                required
+              />
+              <div class="upload-icon">🔬</div>
+              <p>Click or drag &amp; drop your MRI image here</p>
+              <small>Accepts JPG or PNG files &nbsp;·&nbsp; Your file stays on this device</small>
+            </div>
+          </label>
+
+          <!-- Image preview (shown after selection) -->
+          <div id="preview-container" aria-live="polite">
+            <img id="preview-img" src="" alt="Preview of your uploaded MRI scan" />
+            <p id="preview-name"></p>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            id="continue-btn"
+            disabled
+          >
+            Continue to Visualisation →
+          </button>
+
+        </form>
+      </div>
+
+      <!-- How it works -->
+      <div style="max-width:580px; margin:2rem auto 0; text-align:center;">
+        <p style="color:var(--muted); font-size:.9rem;">
+          <strong>How it works:</strong> Upload → See a simulated anatomy overlay →
+          Get a list of questions to discuss with your doctor.
+          No account needed. No data is stored beyond your session.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>EmpowerImaging</strong> &mdash; For educational purposes only. Not a medical device.
+      Not a substitute for professional medical advice, diagnosis, or treatment.
+    </div>
+  </footer>
+
+  <script>
+    const input    = document.getElementById('mri-input');
+    const zone     = document.getElementById('upload-zone');
+    const preview  = document.getElementById('preview-container');
+    const previewImg = document.getElementById('preview-img');
+    const previewName = document.getElementById('preview-name');
+    const btn      = document.getElementById('continue-btn');
+
+    function showPreview(file) {
+      if (!file) return;
+      const allowed = ['image/jpeg', 'image/png'];
+      if (!allowed.includes(file.type)) {
+        alert('Please select a JPG or PNG image.');
+        input.value = '';
+        btn.disabled = true;
+        preview.style.display = 'none';
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = e => {
+        previewImg.src = e.target.result;
+        previewName.textContent = file.name;
+        preview.style.display = 'block';
+        btn.disabled = false;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    input.addEventListener('change', () => showPreview(input.files[0]));
+
+    // Drag-and-drop visual feedback
+    zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+    zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+    zone.addEventListener('drop', e => {
+      e.preventDefault();
+      zone.classList.remove('dragover');
+      if (e.dataTransfer.files[0]) {
+        input.files = e.dataTransfer.files;
+        showPreview(e.dataTransfer.files[0]);
+      }
+    });
+  </script>
+
+</body>
+</html>

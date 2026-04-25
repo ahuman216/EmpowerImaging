@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmpowerImaging — Questions &amp; Next Steps</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">🫁</div>
+        <span class="logo-text">EmpowerImaging</span>
+      </a>
+      <span class="logo-tag">Educational Only</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- Progress stepper -->
+      <nav class="stepper" aria-label="Progress">
+        <div class="step done">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Upload</span>
+        </div>
+        <div class="step done">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Visualise</span>
+        </div>
+        <div class="step active">
+          <div class="step-circle">3</div>
+          <span class="step-label">Next Steps</span>
+        </div>
+      </nav>
+
+      <h1 style="margin-bottom:.25rem;">Questions &amp; Next Steps</h1>
+      <p style="color:var(--muted); margin-bottom:1.75rem;">
+        Use this page to prepare for a conversation with your healthcare provider.
+        These are general suggestions — not personalised medical advice.
+      </p>
+
+      <!-- Disclaimer -->
+      <div class="disclaimer" role="note">
+        <span class="icon">ℹ️</span>
+        <div>
+          <strong>For educational purposes only.</strong> This content is not based on a real
+          analysis of your scan. A trained radiologist and your treating doctor are the
+          appropriate people to guide your care.
+        </div>
+      </div>
+
+      <!-- ── Section 1: Doctor questions ── -->
+      <div class="card" style="margin-bottom:1.5rem;">
+        <h2>💬 Questions to Ask Your Doctor</h2>
+        <p style="color:var(--muted); font-size:.9rem; margin-bottom:1rem;">
+          Bring this list to your next appointment.
+          <!-- TODO (AI integration): Generate personalised questions based on model output. -->
+        </p>
+        <ul class="steps-list" aria-label="Questions to ask your doctor">
+          {% for q in condition.doctor_questions %}
+          <li>{{ q }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- ── Section 2: Next steps grid ── -->
+      <h2 style="margin-bottom:1rem;">🗺 Possible Next Steps</h2>
+      <div class="steps-grid">
+
+        <div class="steps-card">
+          <h3>📷 Additional Imaging</h3>
+          <ul class="steps-list" aria-label="Additional imaging options">
+            {% for item in condition.next_steps.additional_imaging %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="steps-card">
+          <h3>🌿 Conservative Treatments</h3>
+          <ul class="steps-list" aria-label="Conservative treatment options">
+            {% for item in condition.next_steps.conservative_treatments %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="steps-card" style="grid-column: 1 / -1;">
+          <h3>👩‍⚕️ Specialist Referrals</h3>
+          <ul class="steps-list" aria-label="Possible specialist referrals">
+            {% for item in condition.next_steps.specialist_referrals %}
+            <li>{{ item }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- ── Section 3: Urgent care ── -->
+      <div class="urgent-card" role="note" aria-label="When to seek urgent care">
+        <h3>🚨 When to Seek Urgent Care</h3>
+        <p style="font-size:.88rem; color:#7a3030; margin-bottom:.75rem;">
+          The following symptoms can occasionally be associated with spinal conditions and
+          may require prompt medical attention. <strong>If you experience any of these,
+          contact a doctor or go to an emergency department.</strong>
+        </p>
+        <ul class="urgent-list">
+          {% for sign in condition.urgent_care_signs %}
+          <li>{{ sign }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- ── Actions ── -->
+      <div class="actions-row">
+        <a href="{{ url_for('upload_get') }}" class="btn btn-secondary">
+          ↩ Upload Another Scan
+        </a>
+        <a href="{{ url_for('visualization') }}" class="btn btn-teal">
+          ← Back to Visualisation
+        </a>
+      </div>
+
+      <!-- Final disclaimer -->
+      <p style="margin-top:2rem; font-size:.8rem; color:var(--muted); text-align:center; max-width:600px; margin-left:auto; margin-right:auto;">
+        EmpowerImaging is an educational tool only. It does not constitute medical advice,
+        a clinical opinion, or a diagnosis. Always consult a licensed healthcare professional
+        for guidance specific to your health situation.
+      </p>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>EmpowerImaging</strong> &mdash; For educational purposes only. Not a medical device.
+      Not a substitute for professional medical advice, diagnosis, or treatment.
+    </div>
+  </footer>
+
+</body>
+</html>

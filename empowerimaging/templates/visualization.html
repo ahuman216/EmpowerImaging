@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EmpowerImaging — Visualisation &amp; Explanation</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+</head>
+<body>
+
+  <header>
+    <div class="container header-inner">
+      <a href="/" class="logo">
+        <div class="logo-icon">🫁</div>
+        <span class="logo-text">EmpowerImaging</span>
+      </a>
+      <span class="logo-tag">Educational Only</span>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+
+      <!-- Progress stepper -->
+      <nav class="stepper" aria-label="Progress">
+        <div class="step done">
+          <div class="step-circle">✓</div>
+          <span class="step-label">Upload</span>
+        </div>
+        <div class="step active">
+          <div class="step-circle">2</div>
+          <span class="step-label">Visualise</span>
+        </div>
+        <div class="step">
+          <div class="step-circle">3</div>
+          <span class="step-label">Next Steps</span>
+        </div>
+      </nav>
+
+      <!-- Page heading -->
+      <h1 style="margin-bottom:.25rem;">Scan Visualisation</h1>
+      <p style="color:var(--muted); margin-bottom:1.75rem;">
+        The highlighted region below corresponds to the anatomy discussed on the right.
+      </p>
+
+      <!-- Simulation disclaimer -->
+      <div class="disclaimer" role="note">
+        <span class="icon">🔬</span>
+        <div>
+          <strong>This visualisation is simulated and for education only.</strong>
+          The coloured overlay is not produced by AI analysis of your scan — it is a
+          fixed placeholder illustrating how an area might be highlighted. Only a
+          qualified radiologist can interpret your actual MRI.
+        </div>
+      </div>
+
+      <!-- Two-column layout -->
+      <div class="viz-grid">
+
+        <!-- LEFT: scan + heatmap -->
+        <div>
+          <div class="scan-wrapper">
+            <img
+              src="{{ url_for('static', filename='uploads/' ~ filename) }}"
+              alt="Your uploaded MRI scan"
+            />
+            <!--
+              Simulated heatmap overlay.
+              TODO (AI integration): Replace fixed position/size with coordinates
+              returned by the model so the overlay aligns with the real finding.
+            -->
+            <div class="heatmap-overlay" aria-hidden="true"></div>
+          </div>
+
+          <p class="scan-label">
+            <span class="dot" aria-hidden="true"></span>
+            Highlighted region: <strong>{{ condition.heatmap_label }}</strong>
+          </p>
+
+          <!-- Colour key -->
+          <div style="margin-top:1rem; font-size:.8rem; color:var(--muted); display:flex; gap:1.5rem; flex-wrap:wrap;">
+            <span>🔴 High focus area</span>
+            <span>🟡 Surrounding tissue</span>
+          </div>
+        </div>
+
+        <!-- RIGHT: educational explanation -->
+        <div>
+          <p class="condition-name">{{ condition.region }}</p>
+          <h2>{{ condition.name }}</h2>
+
+          <div class="anatomy-block">
+            <strong>Anatomy overview</strong><br />
+            {{ condition.anatomy_overview }}
+          </div>
+
+          <!-- TODO (AI integration): Replace condition.explanation with model-generated text. -->
+          <p>{{ condition.explanation }}</p>
+
+          <h3>What the highlighted area may represent</h3>
+          <ul class="may-represent" aria-label="Possible representations of highlighted area">
+            {% for point in condition.what_it_may_represent %}
+            <li>{{ point }}</li>
+            {% endfor %}
+          </ul>
+
+          <a href="{{ url_for('next_steps') }}" class="btn btn-primary">
+            Questions &amp; Next Steps →
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <strong>EmpowerImaging</strong> &mdash; For educational purposes only. Not a medical device.
+      Not a substitute for professional medical advice, diagnosis, or treatment.
+    </div>
+  </footer>
+
+</body>
+</html>
