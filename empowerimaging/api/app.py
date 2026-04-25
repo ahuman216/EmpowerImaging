@@ -12,6 +12,10 @@ from utils.mock_analysis import get_condition_data
 app = Flask(__name__)
 app.secret_key = "empower-imaging-secret-key-change-in-production"
 
+template_folder="../templates",
+static_folder="../static"
+
+
 UPLOAD_FOLDER = os.path.join("static", "uploads")
 ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png"}
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
