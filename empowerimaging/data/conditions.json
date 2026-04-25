@@ -1,0 +1,53 @@
+[
+  {
+    "id": "lumbar_disc_herniation",
+    "name": "Lumbar Disc Herniation",
+    "region": "Lumbar Spine (Lower Back)",
+    "heatmap_label": "L4–L5 Disc Region",
+    "anatomy_overview": "The lumbar spine consists of five vertebrae (L1–L5) stacked between the thoracic spine and the sacrum. Between each vertebra sits an intervertebral disc — a cushion of tough outer cartilage (annulus fibrosus) surrounding a gel-like core (nucleus pulposus). These discs absorb shock and allow flexible movement.",
+    "explanation": "In this simulated scan, the highlighted area suggests a possible disc bulge near the L4–L5 junction. When the soft inner core of a disc pushes through a tear in the outer layer, it may press on nearby nerve roots. This is a common finding in adults aged 30–50 and does not always cause symptoms.",
+    "what_it_may_represent": [
+      "Mild disc bulge without nerve compression — often asymptomatic",
+      "Disc herniation pressing on a nearby nerve root, which may cause radiating leg pain (sciatica)",
+      "Degenerative disc changes consistent with normal ageing",
+      "Inflammation of surrounding soft tissue",
+      "Note: Only a qualified radiologist can interpret your actual scan."
+    ],
+    "doctor_questions": [
+      "What exactly does this finding mean for my specific situation?",
+      "Is this level of disc change typical for my age?",
+      "Could this explain the pain or symptoms I have been experiencing?",
+      "What non-surgical options are available first — such as physical therapy or pain management?",
+      "Are there activities I should avoid to prevent further irritation?",
+      "When would surgery become a consideration, and what would that involve?",
+      "Do I need any follow-up imaging, such as a repeat MRI or nerve conduction study?",
+      "Should I see a specialist — such as a neurologist, orthopaedic surgeon, or pain specialist?"
+    ],
+    "next_steps": {
+      "additional_imaging": [
+        "Follow-up MRI in 6–12 weeks if symptoms change",
+        "CT scan if bone detail is needed alongside soft tissue findings",
+        "Nerve conduction study (EMG) if nerve involvement is suspected"
+      ],
+      "conservative_treatments": [
+        "Guided physical therapy to strengthen core and back muscles",
+        "Over-the-counter anti-inflammatory medication (as directed by a doctor)",
+        "Heat or ice therapy for short-term relief",
+        "Activity modification — avoiding heavy lifting or prolonged sitting",
+        "Gentle stretching and posture improvement"
+      ],
+      "specialist_referrals": [
+        "Primary care physician — first point of contact to review the scan",
+        "Orthopaedic surgeon or neurosurgeon — if structural intervention is considered",
+        "Pain management specialist — for ongoing pain that does not respond to first-line care",
+        "Physiotherapist — for a personalised rehabilitation programme"
+      ]
+    },
+    "urgent_care_signs": [
+      "Sudden loss of bladder or bowel control",
+      "Rapidly worsening weakness in one or both legs",
+      "Severe, unrelenting pain that does not improve with rest",
+      "Numbness in the groin or inner thigh area (saddle anaesthesia)"
+    ]
+  }
+]
